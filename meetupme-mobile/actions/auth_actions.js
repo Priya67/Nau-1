@@ -6,6 +6,7 @@ exports.loginUser = (email, password) => {
     return axios.post('http://localhost:3000/api/signin', {email, password}).then((response) => {
       console.log(response.data);
       dispatch(authUser(response.data.token));
+      // console.log(response.data._id);
     }).catch((error) => {
       console.log(error);
     });
@@ -15,10 +16,16 @@ exports.loginUser = (email, password) => {
 exports.signupUser = (email, password) => {
   return function(dispatch) {
     return axios.post('http://localhost:3000/api/signup', {email, password}).then((response) => {
-      console.log('success');
+      dispatch(authUser(response.data.token));
     }).catch((error) => {
       console.log("Could not sign up.");
     });
+  };
+};
+
+exports.signoutUser = () => {
+  return function(dispatch){
+    dispatch(unauthUser());
   };
 };
 
@@ -29,6 +36,8 @@ var authUser = (user_id) => {
   };
 };
 
-exports.unauthUser = {
-  type: 'UNAUTH_USER'
+var unauthUser = () => {
+  return {
+    type: 'UNAUTH_USER'
+  };
 };

@@ -18,10 +18,16 @@ class Entry extends React.Component {
   render() {
     const newPage = this.props.auth.user_id ? <Main /> : <Login />;
     return(
-      <View>{newPage}</View>
+      <View style={styles.container}>{newPage}</View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 const mapStateToProps = (state) => {
   return({
