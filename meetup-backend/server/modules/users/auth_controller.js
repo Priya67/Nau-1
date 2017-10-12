@@ -4,7 +4,7 @@ const jwt = require('jwt-simple');
 
 function tokenForUser(user) {
   var timestamp = new Date().getTime();
-  // console.log("Hi Justin");
+  console.log("Hi Justin");
   return jwt.encode({
     sub: user.id,
     iat: timestamp
@@ -15,8 +15,16 @@ function tokenForUser(user) {
   var email = req.body.email;
   var password = req.body.password;
   var user = {"email": email, "password": password};
-  console.log(req);
-  res.send({token: tokenForUser(user), user_id: user._id});
+  User.findOne({email: email.toLowerCase()}, function(err, user) {
+    if (err) { return; }
+    if (!user) { return; }
+    user.comparePassword(password, function(err, isMatch) {
+      if (err) { return; }
+      if (!isMatch) { return; }
+      res.send({token: tokenForUser(user)});
+      // return done(null, user);
+    })
+  });
 };
 
 exports.signup = function(req, res, next) {
