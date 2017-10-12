@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 exports.loginUser = (email, password) => {
-  console.log("***", email);
+  // console.log("***", email);
   return function(dispatch) {
     return axios.post('http://localhost:3000/api/signin', {email, password}).then((response) => {
-      console.log('success');
-      dispatch(authUser(response.data.user_id));
+      console.log(response.data);
+      dispatch(authUser(response.data.token));
     }).catch((error) => {
-      console.log('could not log in');
+      console.log(error);
     });
   };
 };

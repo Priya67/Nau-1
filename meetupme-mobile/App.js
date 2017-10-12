@@ -18,7 +18,6 @@ const store1 = configureStore();
 
 class App extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <Provider store={store1}>
         <Entry />

@@ -4,17 +4,20 @@ const jwt = require('jwt-simple');
 
 function tokenForUser(user) {
   var timestamp = new Date().getTime();
-  console.log(user);
+  // console.log("Hi Justin");
   return jwt.encode({
     sub: user.id,
     iat: timestamp
   }, 'hello');
 }
 
-exports.signin = function(req, res, next) {
-  var user = req.user;
+ exports.signin = function(req, res, next) {
+  var email = req.body.email;
+  var password = req.body.password;
+  var user = {"email": email, "password": password};
+  console.log(req);
   res.send({token: tokenForUser(user), user_id: user._id});
-}
+};
 
 exports.signup = function(req, res, next) {
   var email = req.body.email;
@@ -25,15 +28,15 @@ exports.signup = function(req, res, next) {
 
   // Check if user already exists, send error if they do
   User.findOne({email: email}, function(err, existingUser) {
-    if (err) { return next(err) }
-    if (existingUser) {return res.status(422).json({error: "Email taken"})}
+    if (err) { return next(err); }
+    if (existingUser) {return res.status(422).json({error: "Email taken"});}
     var user = new User({
       email: email,
       password: password
     });
     user.save(function(err) {
-      if (err) { return next(err) }
+      if (err) { return next(err); }
       res.json({user_id: user._id, token: tokenForUser(user)});
     });
   });
-}
+};

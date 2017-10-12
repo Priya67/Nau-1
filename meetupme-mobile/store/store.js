@@ -11,7 +11,7 @@ export const configureStore = (initialState=defaultState) => {
     applyMiddleware(thunk),
     autoRehydrate()
   ));
-  console.log(store);
+  // console.log(store);
   persistStore(store, {storage: AsyncStorage});
   return store;
 };
