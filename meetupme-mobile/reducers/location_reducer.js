@@ -5,7 +5,7 @@ const locationReducer = (state = defaultState, action) => {
     case 'RECEIVE_ALL_LOCATIONS':
 
       return {
-        locations: action.data.locations
+        locations: action
       };
       default:
         return defaultState;

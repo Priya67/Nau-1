@@ -17,6 +17,7 @@ class Locations extends React.Component {
   }
 
   getLocations() {
+    console.log("getLocations")
     this.props.searchLocations("ipad");
   }
 
