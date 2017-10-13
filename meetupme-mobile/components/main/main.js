@@ -10,6 +10,7 @@ import { AppRegistry,
 } from 'react-native';
 import { signoutUser } from "../../actions/auth_actions";
 import { connect } from 'react-redux';
+import Locations from '../locations/locations';
 
 class Main extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Main extends React.Component {
             <Text style={styles.logoutText}>Log Out</Text>
           </TouchableOpacity>
         </View>
+        <View><Locations/></View>
       </View>
     );
   }
