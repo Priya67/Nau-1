@@ -13,23 +13,27 @@ import { searchLocations } from '../../actions/location_actions';
 class Locations extends React.Component {
   constructor(props) {
     super(props);
-    this.getLocations = this.getLocations.bind(this);
+    // this.getLocations = this.getLocations.bind(this);
   }
 
-  getLocations() {
-    console.log("getLocations")
+  componentWillMount() {
     this.props.searchLocations("ipad");
   }
 
   render() {
+    const displayLocations = this.props.locations.map(
+      location => (<Text>{location.name}</Text>)
+    );
+    console.log(this.props);
     return (
       <View>
         <Text>Helllloooo</Text>
-        <Text>{this.getLocations()}</Text>
+        <View>{displayLocations}</View>
       </View>
     );
   }
 }
+
 
 const mapStateToProps = state => ({
   locations: state.locations
