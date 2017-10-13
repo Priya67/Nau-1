@@ -17,7 +17,7 @@ class Locations extends React.Component {
   }
 
   componentWillMount() {
-    this.props.searchLocations("ipad");
+    this.props.searchLocations("vacuum-cleaner");
   }
 
   render() {
