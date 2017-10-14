@@ -17,17 +17,16 @@ class Locations extends React.Component {
   }
 
   componentWillMount() {
-    this.props.searchLocations("vacuum-cleaner");
+    // console.log(this.props.navigation.state);
+    this.props.searchLocations(this.props.navigation.state.params.product_name, this.props.navigation.state.params.searchRadius);
   }
 
   render() {
     const displayLocations = this.props.locations.map(
-      location => (<Text>{location.name}</Text>)
+      location => (<Text key={location.id}>{location.name}</Text>)
     );
-    console.log(this.props);
     return (
       <View>
-        <Text>Helllloooo</Text>
         <View>{displayLocations}</View>
       </View>
     );
@@ -40,7 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  searchLocations: (product_name) => dispatch(searchLocations(product_name))
+  searchLocations: (product_name, radius) => dispatch(searchLocations(product_name, radius))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Locations);
