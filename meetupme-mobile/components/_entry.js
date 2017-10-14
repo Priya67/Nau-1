@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Root } from '../config/router';
 import { AppRegistry,
   AsyncStorage,
   StyleSheet,
@@ -9,14 +10,17 @@ import { AppRegistry,
   AlertIOS,
   ActivityIndicator
 } from 'react-native';
-import Main from './main/main';
+import Routers from '../config/router';
 import Login from './auth/login';
 
 class Entry extends React.Component {
-
-
+  constructor(props) {
+    super(props);
+  }
+  
   render() {
-    const newPage = this.props.auth.user_id ? <Main /> : <Login />;
+    console.log(this.props);
+    const newPage = this.props.auth.user_id ? <Routers /> : <Login />;
     return(
       <View style={styles.container}>{newPage}</View>
     );
