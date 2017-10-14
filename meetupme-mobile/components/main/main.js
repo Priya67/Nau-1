@@ -21,7 +21,7 @@ class Main extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       product_name: "",
-      searchRadius: 2
+      searchRadius: 0
     };
   }
 
@@ -30,8 +30,8 @@ class Main extends React.Component {
   }
 
   onSubmit() {
-    console.log(this.props);
-    this.props.navigation.navigate('Locations');
+    // console.log(this.props);
+    this.props.navigation.navigate('Locations',this.state);
   }
 
   render() {
