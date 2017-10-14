@@ -6,38 +6,68 @@ import { AppRegistry,
   View,
   TouchableOpacity,
   AlertIOS,
-  ActivityIndicator
+  ActivityIndicator,
+  TextInput
 } from 'react-native';
 import { signoutUser } from "../../actions/auth_actions";
 import { connect } from 'react-redux';
 import Locations from '../locations/locations';
+// import { StackNavigator } from 'react-navigation';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.onSignOut = this.onSignOut.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      product_name: "",
+      searchRadius: 2
+    };
   }
 
   onSignOut() {
     this.props.signoutUser();
   }
 
+  onSubmit() {
+    console.log(this.props);
+    this.props.navigation.navigate('Locations');
+  }
+
   render() {
     return(
-      <View>
-        <Text>Hello</Text>
+      <View style = {styles.container}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.logout} onPress={this.onSignOut}>
             <Text style={styles.logoutText}>Log Out</Text>
           </TouchableOpacity>
         </View>
-        <View><Locations/></View>
+        <View>
+          <TextInput
+            onChangeText={text => this.setState({product_name: text})}
+            placeholder="Product Name"
+            style={styles.textInput}
+          />
+        </View>
+        <View>
+          <TextInput
+            onChangeText={text => this.setState({searchRadius: text})}
+            placeholder="Search Radius"
+            style={styles.textInput}
+          />
+        </View>
+        <TouchableOpacity style={styles.logout} onPress={this.onSubmit}>
+          <Text style={styles.logoutText}>Submit</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   buttonContainer: {
     padding: 20,
     width: '75%',
@@ -54,7 +84,21 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white'
   },
+  textInput: {
+    height: 50,
+    color: '#000053',
+    textAlign: 'center',
+    width: '80%',
+    borderWidth: 2,
+    borderColor: "black",
+    margin: 10,
+    alignSelf: "center"
+  }
 });
+
+// const mapStateToProps = state => ({
+//   locations: state.locations
+// });
 
 const mapDispatchToProps = dispatch => ({
   signoutUser: () => dispatch(signoutUser())

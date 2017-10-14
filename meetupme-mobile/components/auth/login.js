@@ -22,10 +22,20 @@ class Login extends React.Component {
 
     this.onSignIn = this.onSignIn.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
+    this.navigateToMain = this.navigateToMain.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.state.auth.user_id) {
+      this.navigateToMain();
+    }
+  }
+
+  navigateToMain() {
+    this.props.navigation.navigate('Main');
   }
 
   onSignIn() {
-
     // console.log(this.state);
     this.props.loginUser(this.state.email, this.state.password);
   }
