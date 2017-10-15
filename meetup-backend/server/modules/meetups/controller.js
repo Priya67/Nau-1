@@ -22,7 +22,7 @@ export const getAllMeetups = async (req, res) => {
 
 export const getAllInventories = async (req, res) => {
   try {
-      request('https://api.goodzer.com/products/v0.1/search_locations/?query=v-neck+sweater&lat=40.714353&lng=-74.005973&radius=5.0&priceRange=30:120&apiKey=125cbddf3880cb1ba652a7c269ba1eb0', function (error, response, body) {
+      request('https://api.goodzer.com/products/v0.1/search_locations/?query=v-neck+sweater&lat=40.714353&lng=-74.005973&radius=5.0&priceRange=30:120&apiKey=69e56b7af76741f7414285047d3c1cc2', function (error, response, body) {
         if (!error && response.statusCode == 200) {
           return res.status(200).json({ store: JSON.parse(body)});
         }

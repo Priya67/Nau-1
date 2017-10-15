@@ -1,19 +1,47 @@
 import axios from 'axios';
 
-exports.searchLocations = (product_name, radius) => {
-  return function(dispatch) {
-      return axios.get(`https://api.goodzer.com/products/v0.1/search_locations/?query=${product_name}&lat=37.799238&lng=-122.402038&radius=${radius}&apiKey=125cbddf3880cb1ba652a7c269ba1eb0`).then((response) => {
-        console.log("000000000", response.data);
-        dispatch(storeLocations(response.data.locations));
-      }).catch ((e) => {
-        console.log(e);
-  });
-};
-};
+export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
+export const CLEAR_LOCATIONS = 'CLEAR_LOCATIONS';
 
-var storeLocations = (locations) => {
-  return {
-    type: 'RECEIVE_ALL_LOCATIONS',
-    locations
-  };
-};
+const fetchLocationsRootURL = 'https://api.goodzer.com/products/v0.1/search_locations/';
+const searchInStoreRootURL = 'https://api.goodzer.com/products/v0.1/search_in_store/';
+const lat = 37.799238;
+const lng = -122.402038;
+const apiKey = "632c72e5727858fecb20d730fb48de29";
+
+function sleep(miliseconds) { var currentTime = new Date().getTime(); while (currentTime + miliseconds >= new Date().getTime()) { } }
+
+export const fetchLocations = (productName, radius) => dispatch => (
+  axios.get(
+    `${fetchLocationsRootURL}?query=${productName}&lat=${lat}&lng=${lng}&radius=${radius}&apiKey=${apiKey}`
+  ).then(
+    response => {
+      const { locations } = response.data;
+
+      locations.forEach(location => {
+        // sleep(250);
+        const storeId = location.store_id;
+        axios.get(
+          `${searchInStoreRootURL}?storeId=${storeId}&query=${productName}&apiKey=${apiKey}`
+        ).then(
+          response => {
+            if (response.data.status !== "error") {
+              const { products } = response.data;
+              location.products = products;
+              dispatch(receiveLocation(location));
+            }
+          }
+        );
+      });
+    }
+  )
+);
+
+export const receiveLocation = location => ({
+  type: RECEIVE_LOCATION,
+  location
+});
+
+export const clearLocations = () => ({
+  type: CLEAR_LOCATIONS
+});

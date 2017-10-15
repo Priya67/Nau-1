@@ -36,7 +36,6 @@ class Login extends React.Component {
   }
 
   onSignIn() {
-    // console.log(this.state);
     this.props.loginUser(this.state.email, this.state.password);
   }
 
