@@ -1,38 +1,47 @@
 import axios from 'axios';
 
-exports.searchLocations = (product_name, radius) => {
-  return function(dispatch) {
-    return axios.get(`https://api.goodzer.com/products/v0.1/search_locations/?query=${product_name}&lat=37.799238&lng=-122.402038&radius=${radius}&apiKey=69e56b7af76741f7414285047d3c1cc2`).then((response) => {
-      dispatch(storeLocations(response.data.locations));
-    }).catch ((e) => {
-      console.log(e);
-    });
-  };
-};
+export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';
+export const CLEAR_LOCATIONS = 'CLEAR_LOCATIONS';
 
-exports.searchProducts = (product_name, storeId) => {
-  return function(dispatch) {
-    return axios.get(`https://api.goodzer.com/products/v0.1/search_in_store/?storeId=${storeId}&query=${product_name}&apiKey=69e56b7af76741f7414285047d3c1cc2`).then((response) => {
-      console.log("api response", response.data);
-      if (response.data.status !== "error") {
-        dispatch(storeProducts(response.data.products));
-      }
-    }).catch ((e) => {
-      console.log(e);
-    });
-  };
-};
+const fetchLocationsRootURL = 'https://api.goodzer.com/products/v0.1/search_locations/';
+const searchInStoreRootURL = 'https://api.goodzer.com/products/v0.1/search_in_store/';
+const lat = 37.799238;
+const lng = -122.402038;
+const apiKey = "632c72e5727858fecb20d730fb48de29";
 
-var storeLocations = (locations) => {
-  return {
-    type: 'RECEIVE_ALL_LOCATIONS',
-    locations
-  };
-};
+function sleep(miliseconds) { var currentTime = new Date().getTime(); while (currentTime + miliseconds >= new Date().getTime()) { } }
 
-var storeProducts = (products) => {
-  return {
-    type: 'RECEIVE_ALL_PRODUCTS',
-    products
-  };
-};
+export const fetchLocations = (productName, radius) => dispatch => (
+  axios.get(
+    `${fetchLocationsRootURL}?query=${productName}&lat=${lat}&lng=${lng}&radius=${radius}&apiKey=${apiKey}`
+  ).then(
+    response => {
+      const { locations } = response.data;
+
+      locations.forEach(location => {
+        // sleep(250);
+        const storeId = location.store_id;
+        axios.get(
+          `${searchInStoreRootURL}?storeId=${storeId}&query=${productName}&apiKey=${apiKey}`
+        ).then(
+          response => {
+            if (response.data.status !== "error") {
+              const { products } = response.data;
+              location.products = products;
+              dispatch(receiveLocation(location));
+            }
+          }
+        );
+      });
+    }
+  )
+);
+
+export const receiveLocation = location => ({
+  type: RECEIVE_LOCATION,
+  location
+});
+
+export const clearLocations = () => ({
+  type: CLEAR_LOCATIONS
+});

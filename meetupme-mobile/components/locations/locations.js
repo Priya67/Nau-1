@@ -9,46 +9,53 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
-import { searchLocations, searchProducts } from '../../actions/location_actions';
+import { fetchLocations, clearLocations } from '../../actions/location_actions';
 
 class Locations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      allProducts: [],
-      answer: []
-    };
+    this.queryDidChange = this.queryDidChange.bind(this);
   }
 
   componentWillMount() {
-    // console.log(this.props.locations);
-    const product_name = this.props.navigation.state.params.product_name;
-    let products = [];
-    this.props.searchLocations(product_name, this.props.navigation.state.params.searchRadius).then(
-      // console.log("props", this.props);
-      Object.keys(this.props.locations).forEach(key => {
-        const storeProducts = this.props.searchProducts(product_name, this.props.locations[key].store_id);
-        products.push(storeProducts);
-      })
+    const { productName, searchRadius } = this.props.navigation.state.params;
+    this.props.fetchLocations(productName, searchRadius);
+    console.log(this.props.locations);
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.queryDidChange(nextProps)) {
+  //     this.props.clearLocations();
+  //
+  //     const { productName, searchRadius } = nextProps.navigation.state.params;
+  //     this.props.fetchLocations(productName, searchRadius);
+  //   }
+  // }
+
+  queryDidChange(nextProps) {
+    const currentParams = this.props.navigation.state.params;
+    const nextParams = nextProps.navigation.state.params;
+
+    return (
+      currentParams.productName !== nextParams.productName ||
+      currentParams.searchRadius !== nextParams.searchParams
     );
-    // this.props.locations.map((location, i) => {
-    //   console.log("each");
-    //   products = this.props.searchProducts(product_name, location.store_id);
-    //   // merge(location, this.props.searchProducts(product_name, location.store_id));
-    // });
-
-    // this.props.locations.forEach(location => {
-    //   const locationProducts = this.props.searchProducts(product_name, location.store_id);
-    //   products.push({ location: locationProducts});
-    // });
-
-    this.setState({allProducts: products});
-    console.log("location-state", this.state);
   }
 
   render() {
-    const displayProducts = Object.keys(this.props.locations).forEach(key => {
-       <Text>key</Text>;
+    const { locations } = this.props;
+    const displayProducts = locations.map(location => {
+       return (
+         <View>
+           <Text key={location.id}>{location.name}</Text>
+           {location.products.map(product => (
+             <View key={product.id}>
+               <Text>{product.title}</Text>
+               <Text>{product.price}</Text>
+             </View>
+           ))}
+         </View>
+       );
     });
 
     return (
@@ -74,8 +81,8 @@ const mapStateToProps = state => ({
 //    )}
 //  </Text>
 const mapDispatchToProps = dispatch => ({
-  searchLocations: (product_name, radius) => dispatch(searchLocations(product_name, radius)),
-  searchProducts: (product_name, storeId) => dispatch(searchProducts(product_name, storeId))
+  fetchLocations: (productName, radius) => dispatch(fetchLocations(productName, radius)),
+  clearLocations: () => dispatch(clearLocations())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Locations);

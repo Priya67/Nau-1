@@ -20,7 +20,7 @@ class Main extends React.Component {
     this.onSignOut = this.onSignOut.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      product_name: "",
+      productName: "",
       searchRadius: 0
     };
   }
@@ -44,7 +44,7 @@ class Main extends React.Component {
         </View>
         <View>
           <TextInput
-            onChangeText={text => this.setState({product_name: text})}
+            onChangeText={text => this.setState({productName: text})}
             placeholder="Product Name"
             style={styles.textInput}
           />
