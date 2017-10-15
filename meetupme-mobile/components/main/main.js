@@ -30,7 +30,7 @@ class Main extends React.Component {
   }
 
   onSubmit() {
-    // console.log(this.props);
+    debugger;
     this.props.navigation.navigate('Locations',this.state);
   }
 

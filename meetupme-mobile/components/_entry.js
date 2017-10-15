@@ -17,9 +17,8 @@ class Entry extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
-    console.log(this.props);
     const newPage = this.props.auth.user_id ? <Routers /> : <Login />;
     return(
       <View style={styles.container}>{newPage}</View>

@@ -20,25 +20,28 @@ class Locations extends React.Component {
   componentWillMount() {
     const { productName, searchRadius } = this.props.navigation.state.params;
     this.props.fetchLocations(productName, searchRadius);
-    console.log(this.props.locations);
+    // console.log(this.props.navigation.state.params);
+    // console.log(this.props.locations);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.queryDidChange(nextProps)) {
-  //     this.props.clearLocations();
-  //
-  //     const { productName, searchRadius } = nextProps.navigation.state.params;
-  //     this.props.fetchLocations(productName, searchRadius);
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (this.queryDidChange(nextProps)) {
+      // console.log('did query change?', this.queryDidChange(nextProps), this.props, nextProps);
+
+      this.props.clearLocations();
+
+      const { productName, searchRadius } = nextProps.navigation.state.params;
+
+      this.props.fetchLocations(productName, searchRadius);
+    }
+  }
 
   queryDidChange(nextProps) {
     const currentParams = this.props.navigation.state.params;
     const nextParams = nextProps.navigation.state.params;
-
     return (
       currentParams.productName !== nextParams.productName ||
-      currentParams.searchRadius !== nextParams.searchParams
+      currentParams.searchRadius !== nextParams.searchRadius
     );
   }
 
@@ -46,8 +49,8 @@ class Locations extends React.Component {
     const { locations } = this.props;
     const displayProducts = locations.map(location => {
        return (
-         <View>
-           <Text key={location.id}>{location.name}</Text>
+         <View key={location.id}>
+           <Text>{location.name}</Text>
            {location.products.map(product => (
              <View key={product.id}>
                <Text>{product.title}</Text>

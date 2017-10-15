@@ -40,7 +40,6 @@ class Login extends React.Component {
   }
 
   onSignUp() {
-
     this.props.signupUser(this.state.email, this.state.password);
   }
 
