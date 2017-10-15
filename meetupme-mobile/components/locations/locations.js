@@ -15,38 +15,41 @@ class Locations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allProducts: []
+      allProducts: [],
+      answer: []
     };
   }
 
   componentWillMount() {
     // console.log(this.props.locations);
     const product_name = this.props.navigation.state.params.product_name;
-    this.props.searchLocations(product_name, this.props.navigation.state.params.searchRadius);
     let products = [];
-    this.props.locations.forEach((location, i) => {
-      //console.log('location',location);
-      console.log(i);
-      // this.props.locations[i]['p'] = this.props.searchProducts(product_name, location.store_id);
-      merge(location, this.props.searchProducts(product_name, location.store_id));
-// ;      this.props.locations[i].push(this.props.searchProducts(product_name, location.store_id));
-//       console.log("testing",this.props.searchProducts(product_name, location.store_id));
-      console.log(location);
-    });
-    // console.log("Final:",this.props.locations);
+    this.props.searchLocations(product_name, this.props.navigation.state.params.searchRadius).then(
+      // console.log("props", this.props);
+      Object.keys(this.props.locations).forEach(key => {
+        const storeProducts = this.props.searchProducts(product_name, this.props.locations[key].store_id);
+        products.push(storeProducts);
+      })
+    );
+    // this.props.locations.map((location, i) => {
+    //   console.log("each");
+    //   products = this.props.searchProducts(product_name, location.store_id);
+    //   // merge(location, this.props.searchProducts(product_name, location.store_id));
+    // });
+
     // this.props.locations.forEach(location => {
     //   const locationProducts = this.props.searchProducts(product_name, location.store_id);
     //   products.push({ location: locationProducts});
     // });
-    // console.log("products", products);
+
     this.setState({allProducts: products});
+    console.log("location-state", this.state);
   }
 
   render() {
-    // console.log(this.state.allProducts);
-    const displayProducts = this.props.locations.forEach(
-       set => console.log("anything")
-    );
+    const displayProducts = Object.keys(this.props.locations).forEach(key => {
+       <Text>key</Text>;
+    });
 
     return (
       <View>

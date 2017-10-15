@@ -1,13 +1,16 @@
+import merge from 'lodash/merge';
 const defaultState = [];
 
 const locationReducer = (state = defaultState, action) => {
-  // console.log(action);
+  console.log("I am in reducer", action);
   switch(action.type) {
     case 'RECEIVE_ALL_LOCATIONS':
-      return action.locations;
+      return merge({}, state, {"locations": action.locations});
+
     case 'RECEIVE_ALL_PRODUCTS':
-      //console.log('ACTION.PROD',action.products);
-      return action.products;
+      console.log("state", state);
+      console.log("action", action);
+      return merge({}, state, {"products": action.products});
     default:
       return defaultState;
   }
