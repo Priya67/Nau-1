@@ -7,7 +7,7 @@ const fetchLocationsRootURL = 'https://api.goodzer.com/products/v0.1/search_loca
 const searchInStoreRootURL = 'https://api.goodzer.com/products/v0.1/search_in_store/';
 const lat = 37.799238;
 const lng = -122.402038;
-const apiKey = "b5ea37213039865c56f42eaad63d6e4a";
+const apiKey = "16a104382640650bc7a287a9d0d83cd2";
 
 function sleep(miliseconds) { var currentTime = new Date().getTime(); while (currentTime + miliseconds >= new Date().getTime()) { } }
 
