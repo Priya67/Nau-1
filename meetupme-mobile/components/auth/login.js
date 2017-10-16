@@ -90,7 +90,7 @@ class Login extends React.Component {
                 <Text style={styles.loginText}>Log In</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.login} onPress={this.onSignUp}>
-                <Text style={styles.loginText}>Signup</Text>
+                <Text style={styles.loginText}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -106,14 +106,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     paddingTop: 40,
-    backgroundColor: '#536A91',
+    backgroundColor: '#FFFFCd',
     top: Dimensions.get('window').height*.01,
   },
   titleContainer: {
     padding: 10
   },
   title: {
-    color: '#FF890D',
+    color: '#9b9aff',
     fontSize: 56,
     fontFamily: 'baloo-chettan',
     top: Dimensions.get('window').height*.05,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   subtitle: {
-    color: '#FF890D',
+    color: '#9b9aff',
     fontSize: 26,
     fontFamily: 'open-sans',
     top: Dimensions.get('window').height*.05,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5,
     width: '80%',
-    backgroundColor: '#E9ECF1',
-    borderBottomColor: '#183059',
+    backgroundColor: '#FFFFCd',
+    borderBottomColor: '#6FE8C8',
     borderBottomWidth: 3,
     alignSelf: 'center'
   },
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   login: {
     borderRadius: 5,
     borderColor: 'transparent',
-    backgroundColor: '#183059',
+    backgroundColor: '#6FE8C8',
     marginBottom: 20,
     padding: 10,
 
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   loginText: {
     textAlign: 'center',
     fontSize: 24,
+    fontWeight: 'bold',
     color: 'white'
   },
   formError: {

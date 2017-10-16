@@ -56,7 +56,7 @@ class Main extends React.Component {
           { this.state.fontLoaded ?
             (<View>
               <Text style={styles.subtitle}>
-                U betta search it, gurl
+                Get it Nau
               </Text>
             </View>) : null
 
@@ -90,23 +90,24 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     paddingTop: 5,
-    backgroundColor: '#536A91',
+    backgroundColor: '#FFFFCd',
 
   },
   titleContainer: {
     padding: 10
   },
   title: {
-    color: '#FF890D',
+    color: '#9b9aff',
     fontSize: 56,
     fontFamily: 'baloo-chettan',
     marginBottom: 10,
     textAlign: 'center'
   },
   subtitle: {
-    color: '#FF890D',
+    color: '#9b9aff',
     fontSize: 26,
     fontFamily: 'open-sans',
+    fontWeight: 'bold',
     margin: 5,
     textAlign: 'center'
   },
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
   submit: {
     borderRadius: 5,
     borderColor: 'transparent',
-    backgroundColor: '#183059',
+    backgroundColor: '#6FE8C8',
     margin: 40,
     padding: 10,
     width: '65%',
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   logout: {
     borderRadius: 5,
     borderColor: 'transparent',
-    backgroundColor: '#183059',
+    backgroundColor: '#6FE8C8',
     marginBottom: 20,
     padding: 5,
     width: '40%',
@@ -151,8 +152,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5,
     width: '80%',
-    backgroundColor: '#E9ECF1',
-    borderBottomColor: '#183059',
+    backgroundColor: '#FFFFCd',
+    borderBottomColor: '#6FE8C8',
     borderBottomWidth: 3,
     alignSelf: 'center',
     height: 50
