@@ -7,18 +7,19 @@ const fetchLocationsRootURL = 'https://api.goodzer.com/products/v0.1/search_loca
 const searchInStoreRootURL = 'https://api.goodzer.com/products/v0.1/search_in_store/';
 const lat = 37.799238;
 const lng = -122.402038;
-const apiKey = "cb41d115766821b42e1c7f11a67bcd77";
+const apiKey = "b5ea37213039865c56f42eaad63d6e4a";
 
 function sleep(miliseconds) { var currentTime = new Date().getTime(); while (currentTime + miliseconds >= new Date().getTime()) { } }
 
-export const fetchLocations = (productName, radius) => dispatch => (
+export const fetchLocations = (productName, radius) => dispatch => {
+  // console.log(productName);
+  // console.log(radius);
   axios.get(
     `${fetchLocationsRootURL}?query=${productName}&lat=${lat}&lng=${lng}&radius=${radius}&apiKey=${apiKey}`
   ).then(
     response => {
       const { locations } = response.data;
       locations.forEach(location => {
-        // sleep(250);
         const storeId = location.store_id;
         axios.get(
           `${searchInStoreRootURL}?storeId=${storeId}&query=${productName}&apiKey=${apiKey}`
@@ -33,8 +34,8 @@ export const fetchLocations = (productName, radius) => dispatch => (
         );
       });
     }
-  )
-);
+  );
+};
 
 export const receiveLocation = location => ({
   type: RECEIVE_LOCATION,

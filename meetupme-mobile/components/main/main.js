@@ -11,9 +11,9 @@ import { AppRegistry,
   TextInput
 } from 'react-native';
 import { signoutUser } from "../../actions/auth_actions";
+import { clearLocations } from '../../actions/location_actions';
 import { connect } from 'react-redux';
 import Locations from '../locations/locations';
-// import { StackNavigator } from 'react-navigation';
 
 class Main extends React.Component {
   constructor(props) {
@@ -32,8 +32,7 @@ class Main extends React.Component {
       'baloo-chettan': require('../../assets/fonts/BalooChettan-Regular.ttf'),
       'open-sans': require('../../assets/fonts/OpenSans-Regular.ttf')
     });
-
-     this.setState({ fontLoaded: true });
+    this.setState({ fontLoaded: true });
   }
 
   onSignOut() {
@@ -41,7 +40,7 @@ class Main extends React.Component {
   }
 
   onSubmit() {
-    debugger;
+    this.props.clearLocations();
     this.props.navigation.navigate('Locations',this.state);
   }
 
@@ -165,7 +164,8 @@ const styles = StyleSheet.create({
 // });
 
 const mapDispatchToProps = dispatch => ({
-  signoutUser: () => dispatch(signoutUser())
+  signoutUser: () => dispatch(signoutUser()),
+  clearLocations: () => dispatch(clearLocations())
 });
 
 export default connect(null, mapDispatchToProps)(Main);
