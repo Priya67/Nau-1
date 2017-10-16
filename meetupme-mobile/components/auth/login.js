@@ -32,8 +32,7 @@ class Login extends React.Component {
       'baloo-chettan': require('../../assets/fonts/BalooChettan-Regular.ttf'),
       'open-sans': require('../../assets/fonts/OpenSans-Regular.ttf')
     });
-
-     this.setState({ fontLoaded: true });
+    this.setState({ fontLoaded: true });
   }
 
   componentWillReceiveProps() {
@@ -51,7 +50,6 @@ class Login extends React.Component {
   }
 
   onSignUp() {
-
     this.props.signupUser(this.state.email, this.state.password);
   }
 
