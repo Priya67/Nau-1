@@ -13,7 +13,7 @@ Nau allows for users to enter a product name and a search radius. Upon querying 
 
 ## Technologies
 * NoSQL database
-* Django backend
+* Node JS backend
 * ReactJS frontend
 * ReactNative frontend
 
