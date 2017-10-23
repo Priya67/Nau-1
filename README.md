@@ -22,7 +22,7 @@ Nau allows for users to enter a product name and a search radius. Upon querying 
 Saturday:
 * Work on the proposal
 * API research, getting as many keys as we can
-* Doing tutorials on Django and NoSQL(MongoDB)
+* Doing tutorials on Node, Express and NoSQL(MongoDB)
 
 Sunday:
 * Work on the proposal
